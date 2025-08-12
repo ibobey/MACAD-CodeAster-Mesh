@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{D21856FD-FA54-4043-83BD-A41065D2423F}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="ControlzEx" />
+    <PackageReference Include="Dirkster.AvalonDock" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" />
+    <PackageReference Include="Fluent.Ribbon" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Macad.Presentation.csproj.DotSettings" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Page Remove="Controls\TaskDialog\DesignData_TaskDialogData.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MergedDict Include="Styles\ThemeLight.xaml" />
+    <MergedDict Include="Styles\ThemeDark.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Macad.Common\Macad.Common.csproj" />
+    <ProjectReference Include="..\Macad.Resources\Macad.Resources.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="Test.Unit" />
+    <InternalsVisibleTo Include="Test.Memory" />
+  </ItemGroup>
+
+  <!-- Import the custom build targets -->
+
+  <Import Project="$(MMBuildPropsDir)Macad.Xaml.targets" />
+
+</Project>

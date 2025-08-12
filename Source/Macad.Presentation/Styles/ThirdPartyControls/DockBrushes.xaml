@@ -1,0 +1,119 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dock="clr-namespace:AvalonDock.Themes.VS2013.Themes;assembly=AvalonDock.Themes.VS2013"
+    xmlns:mmp="clr-namespace:Macad.Presentation">
+
+    <!-- File cannot start with StaticResource -->
+    <SolidColorBrush x:Key="Dummy" Color="Black" />
+
+    <!-- Main Colors -->
+    <mmp:AppResource x:Key="Macad.Brushes.Dock.Accent" ResourceKey="Macad.Brushes.Accent" />
+    <mmp:AppResource x:Key="Macad.Brushes.Dock.Background" ResourceKey="Macad.Brushes.Pane.Background" />
+    <mmp:AppResource x:Key="Macad.Brushes.Dock.Border" ResourceKey="Macad.Brushes.Window.Border" />
+    <mmp:AppResource x:Key="Macad.Brushes.Dock.ActiveText" ResourceKey="Macad.Brushes.Black" />
+    <mmp:AppResource x:Key="Macad.Brushes.Dock.ActiveBackground" ResourceKey="Macad.Brushes.Dock.Accent" />
+    <mmp:AppResource x:Key="Macad.Brushes.Dock.InactiveText" ResourceKey="Macad.Brushes.Base70" />
+
+    <!--  Accent Keys  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ControlAccentBrushKey}" ResourceKey="Macad.Brushes.Dock.Accent" />
+
+    <!--  General  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.Background}" ResourceKey="Macad.Brushes.Window.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.PanelBorderBrush}" ResourceKey="Macad.Brushes.Dock.Border" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.TabBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+
+    <!--  Floating Document Window  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.FloatingDocumentWindowBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.FloatingDocumentWindowBorder}" ResourceKey="Macad.Brushes.Dock.Border" />
+
+    <!--  Floating Tool Window  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.FloatingToolWindowBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.FloatingToolWindowBorder}" ResourceKey="Macad.Brushes.Dock.Border" />
+
+    <!--  DockingBrushKeys  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DockingButtonForegroundBrushKey}" ResourceKey="Macad.Brushes.Base60" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DockingButtonForegroundArrowBrushKey}" ResourceKey="Macad.Brushes.Base90" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DockingButtonStarBackgroundBrushKey}" Opacity="0.4" Color="{mmp:AppResource Macad.Colors.Base20}" />
+
+    <!--  Preview Box  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.PreviewBoxBorderBrushKey}" ResourceKey="Macad.Brushes.Base80" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.PreviewBoxBackgroundBrushKey}" Opacity="0.5" Color="{mmp:AppResource Macad.Colors.Base50}" />
+
+    <!--  Tool Window : Caption  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionActiveBackground}" ResourceKey="Macad.Brushes.Dock.ActiveBackground" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionActiveGrip}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionActiveText}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionInactiveBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionInactiveGrip}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionInactiveText}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+
+    <!-- Tool Window : Caption : Button -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonActiveGlyph}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonActiveHoveredBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonActiveHoveredBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonActiveHoveredGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonActivePressedBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonActivePressedBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonActivePressedGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonInactiveGlyph}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonInactiveHoveredBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonInactiveHoveredBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonInactiveHoveredGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonInactivePressedBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonInactivePressedBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowCaptionButtonInactivePressedGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+
+    <!--  Tool Window : Tab  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabSelectedActiveBackground}" ResourceKey="Macad.Brushes.Dock.ActiveBackground" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabSelectedActiveText}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabSelectedInactiveBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabSelectedInactiveText}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabUnselectedBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabUnselectedText}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabUnselectedHoveredBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.ToolWindowTabUnselectedHoveredText}" ResourceKey="Macad.Brushes.Base80" />
+
+    <!--  Document Well : Tab  -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabSelectedActiveBackground}" ResourceKey="Macad.Brushes.Dock.ActiveBackground" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabSelectedActiveText}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabSelectedInactiveBackground}" ResourceKey="Macad.Brushes.Base30" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabSelectedInactiveText}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabUnselectedBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabUnselectedText}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabUnselectedHoveredBackground}" ResourceKey="Macad.Brushes.Dock.Background" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabUnselectedHoveredText}" ResourceKey="Macad.Brushes.Base80" />
+
+    <!-- Document Well : Tab : Button -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedActiveGlyph}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedActiveHoveredBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedActiveHoveredBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedActiveHoveredGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedActivePressedBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedActivePressedBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedActivePressedGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedInactiveGlyph}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedInactiveHoveredBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedInactiveHoveredBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedInactiveHoveredGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedInactivePressedBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedInactivePressedBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellTabButtonSelectedInactivePressedGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+
+    <!-- Document Well : Overflow Button -->
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellOverflowButtonDefaultGlyph}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellOverflowButtonHoveredBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellOverflowButtonHoveredBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellOverflowButtonHoveredGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellOverflowButtonPressedBackground}" Color="Transparent" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.DocumentWellOverflowButtonPressedBorder}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.DocumentWellOverflowButtonPressedGlyph}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+
+    <!-- Auto Hide : Tab -->
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.AutoHideTabDefaultBackground}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.AutoHideTabDefaultBorder}" ResourceKey="Macad.Brushes.Base60" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.AutoHideTabDefaultText}" ResourceKey="Macad.Brushes.Dock.InactiveText" />
+    <SolidColorBrush x:Key="{x:Static dock:ResourceKeys.AutoHideTabHoveredBackground}" Color="Transparent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.AutoHideTabHoveredBorder}" ResourceKey="Macad.Brushes.Dock.Accent" />
+    <mmp:AppResource x:Key="{x:Static dock:ResourceKeys.AutoHideTabHoveredText}" ResourceKey="Macad.Brushes.Dock.ActiveText" />
+</ResourceDictionary>

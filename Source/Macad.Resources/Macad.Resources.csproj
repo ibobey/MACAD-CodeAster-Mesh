@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{7D720461-7B59-43BE-A1D8-57915A296F9E}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Resource Include="Visual\**\*.png" />
+    <Resource Include="Cursors\**\*.cur" />
+    <Resource Include="Controls\**\*.png" />
+    <Resource Include="Icons\App\App-MainLogo.ico" />
+    <Content Include="Types\Aliases.txt" />
+    <Content Include="Licenses.txt" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <IconSet Include="Icons\**\*.svg">
+      <KeyPrefix>Icon</KeyPrefix>
+    </IconSet>
+    <IconSet Include="Types\**\*.svg">
+      <KeyPrefix>TypeIcon</KeyPrefix>
+      <Aliases>Types\Aliases.txt</Aliases>
+    </IconSet>
+    <IconSet Include="Marker\**\*.svg">
+      <KeyPrefix>Marker</KeyPrefix>
+    </IconSet>
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Test.Unit" />
+    <InternalsVisibleTo Include="Test.Memory" />
+  </ItemGroup>
+
+  <!-- Import the custom build targets -->
+  
+  <Import Project="$(MMBuildPropsDir)Macad.Icons.targets" />
+
+</Project>

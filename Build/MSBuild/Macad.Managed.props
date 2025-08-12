@@ -1,0 +1,31 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Macad.VersionInfo.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <Visible>False</Visible>
+    </ClCompile>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>$(MMFramework)</TargetFramework>
+    <CLRSupport>NetCore</CLRSupport>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <EnableManagedPackageReferenceSupport>true</EnableManagedPackageReferenceSupport>
+    <MSBuildProjectExtensionsPath>$(MMRootDir).intermediate\$(MSBuildProjectName)\</MSBuildProjectExtensionsPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+  </ItemGroup>
+
+</Project>

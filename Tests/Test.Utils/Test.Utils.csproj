@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{123F4185-87CF-4E77-B796-779874292BB4}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <RootNamespace>Macad.Test.Utils</RootNamespace>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Macad.Common\Macad.Common.csproj" />
+    <ProjectReference Include="..\..\Source\Macad.Core\Macad.Core.csproj" />
+    <ProjectReference Include="..\..\Source\Macad.Exchange\Macad.Exchange.csproj" />
+    <ProjectReference Include="..\..\Source\Macad.Interaction\Macad.Interaction.csproj" />
+    <ProjectReference Include="..\..\Source\Macad.Managed\Macad.Managed.vcxproj" />
+    <ProjectReference Include="..\..\Source\Macad.Occt\Macad.Occt.vcxproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Test.Utils.csproj.DotSettings" />
+  </ItemGroup>
+</Project>

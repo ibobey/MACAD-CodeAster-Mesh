@@ -1,0 +1,90 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Icon Conversion from SVG to XAML and Merge into a single Ressource Dictionary -->
+
+  <Import Project="Macad.Common.props" Condition="!Exists('$(MMRootDir)')" />
+  
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <PropertyGroup>
+      <XamlIconsBaseDirectory>$(BaseIntermediateOutputPath)XamlIcons\</XamlIconsBaseDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Setup some metadata for icon groups dicts -->
+    <IconSet Update="@(IconSet)">
+      <XamlFile>$(XamlIconsBaseDirectory)%(IconSet.KeyPrefix)\%(Filename).xaml</XamlFile>
+    </IconSet>
+
+    <!-- Fast up to date check -->
+    <UpToDateCheckInput Include="@(IconSet)" />
+    <UpToDateCheckInput Include="@(IconSet -> '%(Aliases)')" />
+  </ItemGroup>
+
+  <!-- Reference the BuildTools project for the icon processing tasks -->
+  <ItemGroup Condition="@(IconSet) != ''">
+    <ProjectReference Include="..\..\Tools\BuildTools\BuildTools.csproj"> 
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+    </ProjectReference>
+  </ItemGroup>
+  
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Target Name="_ConvertSvgFiles"
+          Inputs="@(IconSet)"
+          Outputs="@(IconSet -> '%(XamlFile)')">
+
+    <PropertyGroup>
+      <_IconSvgList>$(XamlIconsBaseDirectory)SvgItemList.txt</_IconSvgList>
+      <_IconXamlList>$(XamlIconsBaseDirectory)XamlItemList.txt</_IconXamlList>
+    </PropertyGroup>
+   
+    <ItemGroup>
+      <_CurrentIconSet Include="@(IconSet)" />
+    </ItemGroup>
+
+    <MakeDir Directories="$(XamlIconsBaseDirectory)" />  
+    <WriteLinesToFile File="$(_IconSvgList)" 
+                      Lines="@(_CurrentIconSet -> '%(FullPath)')" 
+                      Overwrite="true" />
+    <WriteLinesToFile File="$(_IconXamlList)" 
+                      Lines="@(_CurrentIconSet -> '%(XamlFile)')" 
+                      Overwrite="true" />
+
+    <Exec Command="$(TargetDir)BuildTools.exe SvgToXaml In=&quot;$(_IconSvgList)&quot; Out=&quot;$(_IconXamlList)&quot;" />
+
+  </Target>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Target Name="_MergeXamlIcons"
+          Inputs="@(IconSet);@(IconSet -> '%(Aliases)')"
+          Outputs="@(IconSet -> '$(XamlIconsBaseDirectory)%(KeyPrefix).xaml')">
+  
+    <Exec Command="$(TargetDir)BuildTools.exe MergeIcons In=&quot;$(XamlIconsBaseDirectory)%(IconSet.KeyPrefix)&quot; Out=&quot;$(XamlIconsBaseDirectory)%(IconSet.KeyPrefix).xaml&quot; Alias=&quot;$(ProjectDir)%(IconSet.Aliases)&quot;" />
+  
+  </Target>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Target Name="BuildXamlIconSets"
+          AfterTargets="ResolveProjectReferences"
+          DependsOnTargets="_ConvertSvgFiles;_MergeXamlIcons">
+  
+    <ItemGroup>
+      <Page Include="@(IconSet -> '$(XamlIconsBaseDirectory)%(KeyPrefix).xaml'->Distinct())" />
+    </ItemGroup>
+  
+  </Target>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Target Name="CleanXamlIconSets"
+          AfterTargets="AfterClean">
+  
+    <RemoveDir Directories="$(XamlIconsBaseDirectory)" />
+  
+  </Target>
+  
+</Project>

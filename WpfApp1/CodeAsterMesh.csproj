@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HandyControl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Source\Macad.Common\Macad.Common.csproj" />
+    <ProjectReference Include="..\Source\Macad.Core\Macad.Core.csproj" />
+    <ProjectReference Include="..\Source\Macad.Exchange\Macad.Exchange.csproj" />
+    <ProjectReference Include="..\Source\Macad.Interaction\Macad.Interaction.csproj" />
+    <ProjectReference Include="..\Source\Macad.Managed\Macad.Managed.vcxproj" />
+    <ProjectReference Include="..\Source\Macad.Occt\Macad.Occt.vcxproj" />
+    <ProjectReference Include="..\Source\Macad.Presentation\Macad.Presentation.csproj" />
+    <ProjectReference Include="..\Source\Macad.Resources\Macad.Resources.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="samples\" />
+  </ItemGroup>
+
+</Project>

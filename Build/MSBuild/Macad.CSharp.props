@@ -1,0 +1,50 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetFramework Condition="'$(TargetFramework)' == ''">$(MMFramework)</TargetFramework>
+    <RuntimeIdentifier>$(MMRuntime)</RuntimeIdentifier>
+    <LangVersion>latest</LangVersion>
+    <UseWPF>true</UseWPF>
+    <SelfContained>false</SelfContained>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <OutputPath>$(MMRootDir)bin\$(Configuration)\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <BaseIntermediateOutputPath>$(MMRootDir).intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+
+    <CodeAnalysisRuleSet>$(MMRootDir)Source\Macad.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+    <!-- Warnings Disabled:
+      1573,1591: XML Documentation errors
+    -->
+    <NoWarn>1573,1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Condition="'$(TargetFramework)' == '$(MMFramework)'" 
+                        Include="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Runtime.LegacyExceptionHandling" Value="true" />
+  </ItemGroup>
+
+  <Import Project="Macad.VersionInfo.props" />
+
+</Project>

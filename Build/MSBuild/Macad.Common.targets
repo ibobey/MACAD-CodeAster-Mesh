@@ -1,0 +1,16 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    
+  <!-- Copy files to output directory -->  
+  <Target Name="_CopyFileToOutput" AfterTargets="AfterBuild"
+          Inputs="@(CopyToOutput)"
+          Outputs="@(CopyToOutput->'$(TargetDir)%(Filename)')">
+
+    <Copy SourceFiles="@(CopyToOutput)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- Import specific targets -->
+
+  <Import Project="$(MMBuildPropsDir)Macad.CSharp.targets" Condition="$(MMIsCsProj) == 'true'" />
+  <Import Project="$(MMBuildPropsDir)Macad.Publish.targets" />
+
+</Project>

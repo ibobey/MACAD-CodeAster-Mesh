@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{6CD3EADE-505E-4F55-A720-4A5E7D88F943}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ApplicationIcon>..\Macad.Resources\Icons\App\App-MainLogo.ico</ApplicationIcon>  
+    <Platforms>x64</Platforms>
+    <StartupObject>Macad.Window.Program</StartupObject>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  
+  <Import Project="$(MMBuildPropsDir)\Macad.Publish.props" />
+
+  <ItemGroup>
+    <PackageReference Include="ControlzEx" />
+    <PackageReference Include="Dirkster.AvalonDock" />
+    <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" />
+    <PackageReference Include="Fluent.Ribbon" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Macad.Common\Macad.Common.csproj" />
+    <ProjectReference Include="..\Macad.Core\Macad.Core.csproj" />
+    <ProjectReference Include="..\Macad.Exchange\Macad.Exchange.csproj" />
+    <ProjectReference Include="..\Macad.Interaction\Macad.Interaction.csproj" />
+    <ProjectReference Include="..\Macad.Managed\Macad.Managed.vcxproj" />
+    <ProjectReference Include="..\Macad.Occt\Macad.Occt.vcxproj" />
+    <ProjectReference Include="..\Macad.Presentation\Macad.Presentation.csproj" />
+    <ProjectReference Include="..\Macad.Resources\Macad.Resources.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Test.Unit" />
+    <InternalsVisibleTo Include="Test.Memory" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Macad.args.json" />
+    <None Remove="Macad.csproj.DotSettings" />
+    <None Remove="Properties\launchSettings.json" />
+  </ItemGroup>
+</Project>

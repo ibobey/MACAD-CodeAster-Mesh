@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B80BD2F2-5FC2-49BF-87A3-52469C72812A}</ProjectGuid>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>Macad</RootNamespace>
+    <ProjectName>Macad.Managed</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;WNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>$(OutDir)</AdditionalUsingDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeTypeInfo>
+      </RuntimeTypeInfo>
+      <PrecompiledHeaderFile>ManagedPCH.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Shell32.lib;msvcrtd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <IgnoreSpecificDefaultLibraries>nochkclr.obj</IgnoreSpecificDefaultLibraries>
+      <ForceSymbolReferences>_DllMainCRTStartup</ForceSymbolReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;WNT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>$(OutDir)</AdditionalUsingDirectories>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <RuntimeTypeInfo>
+      </RuntimeTypeInfo>
+      <PrecompiledHeaderFile>ManagedPCH.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Shell32.lib;msvcrt.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <CLRUnmanagedCodeCheck>false</CLRUnmanagedCodeCheck>
+      <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <IgnoreSpecificDefaultLibraries>nochkclr.obj</IgnoreSpecificDefaultLibraries>
+      <ForceSymbolReferences>_DllMainCRTStartup</ForceSymbolReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AisExtensions\AISX_Axis.h" />
+    <ClInclude Include="AisExtensions\AISX_Circle.h" />
+    <ClInclude Include="AisExtensions\AISX_Grid.h" />
+    <ClInclude Include="AisExtensions\AISX_Guid.h" />
+    <ClInclude Include="AisExtensions\AISX_InstanceFilter.h" />
+    <ClInclude Include="AisExtensions\AISX_Plane.h" />
+    <ClInclude Include="AisExtensions\AISX_PrsTool.h" />
+    <ClInclude Include="OcctExtensions\AIS_PointEx.h" />
+    <ClInclude Include="OcctExtensions\AIS_ViewCubeEx.h" />
+    <ClInclude Include="ManagedPCH.h" />
+    <ClInclude Include="OcctIncludes.h" />
+    <ClInclude Include="SketchSolve\solve.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AisExtensions\AISX_Axis.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Axis.Managed.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Circle.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Circle.Managed.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Grid.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Grid.Managed.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Guid.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Guid.Managed.cpp" />
+    <ClCompile Include="AisExtensions\AISX_InstanceFilter.cpp" />
+    <ClCompile Include="AisExtensions\AISX_InstanceFilter.Managed.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Plane.cpp" />
+    <ClCompile Include="AisExtensions\AISX_Plane.Managed.cpp" />
+    <ClCompile Include="AisExtensions\AISX_PrsTool.cpp" />
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="Interop\ExceptionHelper.cpp" />
+    <ClCompile Include="Interop\FileOperation.cpp" />
+    <ClCompile Include="OcctExtensions\AIS_PointEx.cpp" />
+    <ClCompile Include="OcctExtensions\AIS_PointEx_Managed.cpp" />
+    <ClCompile Include="OcctHelper\MessageRouter.cpp" />
+    <ClCompile Include="SketchSolve\solveimpl.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="OcctExtensions\AIS_ViewCubeEx.cpp" />
+    <ClCompile Include="OcctExtensions\AIS_ViewCubeEx_Managed.cpp" />
+    <ClCompile Include="OcctHelper\AisHelper.cpp" />
+    <ClCompile Include="OcctHelper\BRepExchange.cpp" />
+    <ClCompile Include="OcctHelper\Graphic3dHelper.cpp" />
+    <ClCompile Include="OcctHelper\HLRBRepAlgo.cpp" />
+    <ClCompile Include="OcctHelper\IgesExchange.cpp" />
+    <ClCompile Include="OcctHelper\PixMapHelper.cpp" />
+    <ClCompile Include="OcctHelper\StepExchange.cpp" />
+    <ClCompile Include="OcctHelper\TopoDS_Explorer.cpp" />
+    <ClCompile Include="OcctHelper\TriangulationHelper.cpp" />
+    <ClCompile Include="OcctHelper\Version.cpp" />
+    <ClCompile Include="SketchSolve\errorfuncs.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SketchSolve\solve.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="SketchSolve\SketchSolve_Solver.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="ManagedPCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Macad.Occt\Macad.Occt.vcxproj">
+      <Project>{d86316b3-7f16-439c-9be3-db64ed7ad058}</Project>
+      <Private>false</Private>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ItemGroup>
+    <PackageReference Include="Macad.ThirdParty.Occt">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

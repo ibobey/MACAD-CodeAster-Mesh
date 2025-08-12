@@ -1,0 +1,96 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="Macad.Common.props" Condition="!Exists('$(MMRootDir)')" />
+  
+  <!-- Do not merge in Debug mode to enable runtime editing -->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+    <MergedDict Remove="@(MergedDict)" />
+  </ItemGroup>
+
+  <!-- Setup some metadata for merged dicts -->
+  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
+    <MergedDict Update="@(MergedDict)">
+      <DictName>%(MergedDict.Filename)</DictName>
+      <OutFile>$(BaseIntermediateOutputPath)$(Configuration)\%(MergedDict.Identity)</OutFile>
+      <DepsFile>$(BaseIntermediateOutputPath)$(Configuration)\%(MergedDict.Identity).deps</DepsFile>
+    </MergedDict>
+
+    <MergedDictDeps Include="@(MergedDict)" />
+  
+    <!-- Fast up to date check -->
+    <UpToDateCheckOutput Include="@(MergedDict -> '%(DepsFile)')" />
+    <UpToDateCheckOutput Include="@(MergedDict -> '%(OutFile)')" />
+  </ItemGroup>
+
+  <!-- Reference the BuildTools project for the MergeResourceDicts task -->
+  <ItemGroup Condition="@(MergedDict) != ''">
+    <ProjectReference Include="..\..\Tools\BuildTools\BuildTools.csproj"> 
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
+    </ProjectReference>
+  </ItemGroup>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  
+  <!-- Preprocess and merge resource dictionaries -->
+  <Target Name="_ReadMergedDictDeps"
+          Condition="@(MergedDict) != ''">
+
+    <ReadLinesFromFile File="%(MergedDict.DepsFile)">
+      <Output TaskParameter="Lines" ItemName="MergedDictDeps"/>
+    </ReadLinesFromFile>
+
+  </Target>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Target Name="_MergeResourceDicts"
+          Inputs="@(MergedDictDeps)"
+          Outputs="@(MergedDict -> '%(OutFile)')">
+
+    <Message Text="Creating merged resource dictionary %(MergedDict.Identity)" Importance="High" />
+
+    <Exec Command="$(TargetDir)BuildTools.exe MergeResourceDicts Out=&quot;%(MergedDict.OutFile)&quot; In=&quot;%(MergedDict.Identity)&quot; depsOut=&quot;%(MergedDict.DepsFile)&quot; prjDir=&quot;$(ProjectDir)&quot;" />
+
+    <ReadLinesFromFile File="%(MergedDict.DepsFile)">
+      <Output TaskParameter="Lines" 
+              ItemName="MergedDictDeps"/>
+    </ReadLinesFromFile>
+
+  </Target>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Target Name="MergeResourceDictionaries"
+          AfterTargets="ResolveProjectReferences"
+          DependsOnTargets="_ReadMergedDictDeps;_MergeResourceDicts"
+          Condition="@(MergedDict) != ''">
+
+    <ReadLinesFromFile File="%(MergedDict.DepsFile)">
+      <Output TaskParameter="Lines" ItemName="MergedDictDeps"/>
+    </ReadLinesFromFile>
+
+    <!-- Replace merged Xamls with merged dict -->
+    <ItemGroup>
+      <Page Remove="@(MergedDictDeps)" />
+      <Page Include="@(MergedDict -> '%(OutFile)')">
+        <Generator>MSBuild:Compile</Generator>
+        <LogicalName>$([System.String]::new('%(MergedDict.RelativeDir)').Replace('\','/'))%(MergedDict.FileName)%(MergedDict.Extension)</LogicalName>
+      </Page>
+    </ItemGroup>
+
+  </Target>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+  <Target Name="CleanResDictMerge"
+          BeforeTargets="BeforeClean">
+
+    <Delete Files="@(MergedDict -> '%(DepsFile)')" />
+    <Delete Files="@(MergedDict -> '%(OutFile)')" />
+
+  </Target>
+
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+</Project>

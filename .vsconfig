@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "components": [
+    "Microsoft.VisualStudio.Workload.ManagedDesktop",
+    "Microsoft.VisualStudio.Workload.NativeDesktop",
+    "Microsoft.NetCore.Component.SDK",
+    "Microsoft.VisualStudio.Component.Roslyn.Compiler",
+    "Microsoft.VisualStudio.Component.Roslyn.LanguageServices",
+    "Microsoft.Component.MSBuild",
+    "Microsoft.VisualStudio.Component.TextTemplating",
+    "Microsoft.VisualStudio.Component.ManagedDesktop.Core",
+    "Microsoft.VisualStudio.Component.VC.CoreIde",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.ManagedDesktop.Prerequisites",
+    "Microsoft.VisualStudio.Component.VC.Redist.14.Latest",
+    "Microsoft.VisualStudio.Component.VC.CLI.Support",
+  ]
+}

@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{71D0467D-7B10-49E0-9CC3-444AEEB22439}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Macad.Interaction.csproj.DotSettings" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ControlzEx" />
+    <PackageReference Include="Fluent.Ribbon" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Macad.Common\Macad.Common.csproj" />
+    <ProjectReference Include="..\Macad.Core\Macad.Core.csproj" />
+    <ProjectReference Include="..\Macad.Exchange\Macad.Exchange.csproj" />
+    <ProjectReference Include="..\Macad.Managed\Macad.Managed.vcxproj" />
+    <ProjectReference Include="..\Macad.Occt\Macad.Occt.vcxproj" />
+    <ProjectReference Include="..\Macad.Presentation\Macad.Presentation.csproj" />
+    <ProjectReference Include="..\Macad.Resources\Macad.Resources.csproj" />
+    <ProjectReference Include="..\..\Tools\SourceGenerator\SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Test.Unit" />
+    <InternalsVisibleTo Include="Test.Utils" />
+    <InternalsVisibleTo Include="Test.Memory" />
+  </ItemGroup>
+</Project>

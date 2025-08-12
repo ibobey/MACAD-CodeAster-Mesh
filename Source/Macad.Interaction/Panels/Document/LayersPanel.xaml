@@ -1,0 +1,185 @@
+﻿<UserControl x:Class="Macad.Interaction.Panels.LayersPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mmp="clr-namespace:Macad.Presentation;assembly=Macad.Presentation"
+             xmlns:mmi="clr-namespace:Macad.Interaction"
+             xmlns:panels="clr-namespace:Macad.Interaction.Panels"
+             xmlns:treeView="clr-namespace:Macad.Presentation.TreeView;assembly=Macad.Presentation"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1000" 
+             TextOptions.TextFormattingMode="Display"
+             BorderThickness="0"
+             Background="{StaticResource Macad.Brushes.Pane.Background}"
+             BorderBrush="{StaticResource Macad.Brushes.Pane.Border}">
+
+    <UserControl.InputBindings>
+        <KeyBinding Key="F2" Command="{Binding StartRenamingCommand}" />
+    </UserControl.InputBindings>
+
+    <DockPanel>
+        <!--Toolbar-->
+        <ToolBarTray IsLocked="true"
+                     DockPanel.Dock="Top">
+            <ToolBar>
+                <Button mmp:Command.Action="{x:Static mmi:LayerCommands.CreateNewLayer}"
+                        AutomationProperties.AutomationId="CreateLayer"/>
+                <Button CommandParameter="{Binding SelectedLayer}"
+                        mmp:Command.Action="{x:Static mmi:LayerCommands.DeleteLayer}" 
+                        AutomationProperties.AutomationId="DeleteLayer"/>
+                <Button mmp:Command.Action="{Binding StartRenamingCommand}"
+                        AutomationProperties.AutomationId="RenameLayer"/>
+                <Button CommandParameter="{Binding SelectedLayer}"
+                        mmp:Command.Action="{x:Static mmi:LayerCommands.MoveEntityToLayer}"
+                        AutomationProperties.AutomationId="MoveEntityToLayer"/>
+                <Button CommandParameter="{Binding SelectedLayer}"
+                        mmp:Command.Action="{x:Static mmi:LayerCommands.SelectAllEntities}"
+                        AutomationProperties.AutomationId="SelectAllEntities"/>
+                <ToggleButton mmp:Command.Action="{x:Static mmi:LayerCommands.ToggleIsolation}"
+                        AutomationProperties.AutomationId="ToggleIsolation"/>
+            </ToolBar>
+        </ToolBarTray>
+
+        <Rectangle Height="1" 
+                   DockPanel.Dock="Top"
+                   Stroke="{StaticResource Macad.Brushes.Separator}" />
+
+        <!--List-->
+        <treeView:TreeViewEx ItemsSource="{Binding LayersView}"
+                             SelectedItems="{Binding SelectedLayers, Mode=OneWay}"
+                             Background="{StaticResource Macad.Brushes.Panel.Background}"
+                             BorderBrush="{StaticResource Macad.Brushes.Panel.Border}"
+                             BorderThickness="0" 
+                             Margin="0,1"
+                             HorizontalContentAlignment="Stretch"
+                             VerticalContentAlignment="Stretch"
+                             AutomationProperties.AutomationId="LayerList"
+                             AllowMultiSelection="False"
+                             IsDragNDropEnabled="True"
+                             DragCommand="{Binding DragCommand, RelativeSource={RelativeSource AncestorType={x:Type panels:LayersPanel}}}"
+                             DropCommand="{Binding DropCommand, RelativeSource={RelativeSource AncestorType={x:Type panels:LayersPanel}}}">
+
+            <mmp:Behaviors.Behavior>
+                <mmp:DoubleClickCommandBehavior Command="{Binding ActivateLayerCommand}" />
+            </mmp:Behaviors.Behavior>
+
+            <treeView:TreeViewEx.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Layer"
+                              Style="{StaticResource Macad.Styles.MenuItem.GroupHeader}" />
+                    <MenuItem mmp:Command.Action="{x:Static mmi:LayerCommands.CreateNewLayer}" />
+                    <MenuItem CommandParameter="{Binding SelectedLayer}" 
+                              mmp:Command.Action="{x:Static mmi:LayerCommands.DeleteLayer}" />
+                    <MenuItem mmp:Command.Action="{Binding StartRenamingCommand}"
+                              InputGestureText="F2"/>
+                    <Separator />
+                    <MenuItem Header="Move Entities to Layer"
+                              CommandParameter="{Binding SelectedLayer}" 
+                              mmp:Command.Action="{x:Static mmi:LayerCommands.MoveEntityToLayer}" />
+                    <MenuItem Header="Select All Entities"
+                              CommandParameter="{Binding SelectedLayer}"
+                              mmp:Command.Action="{x:Static mmi:LayerCommands.SelectAllEntities}" />
+                </ContextMenu>
+            </treeView:TreeViewEx.ContextMenu>
+
+            <treeView:TreeViewEx.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"
+                               Margin="-14,0,0,0">
+
+                        <!-- Color -->
+                        <Border DockPanel.Dock="Left" 
+                                Width="14" Height="14"
+                                BorderBrush="Black"
+                                BorderThickness="1"
+                                Margin="1"
+                                UseLayoutRounding="True">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                        Fill="{Binding Color, Converter={mmp:ColorToBrushConverter}}" />
+                        </Border>
+
+                        <!-- Menu -->
+                        <Button DockPanel.Dock="Right" 
+                                Width="18" Height="18"
+                                Style="{StaticResource Macad.Styles.Button.GridDropDown}" Click="DrowDownButton_Click">
+                            <mmp:Behaviors.Behavior>
+                                <mmp:DropDownButtonBehavior>
+                                    <mmp:DropDownButtonBehavior.DropDownContent>
+                                        <mmp:Popup Header="LAYER VISUAL" DataContext="{Binding}">
+                                            <panels:LayerVisualPanel />
+                                        </mmp:Popup>
+                                    </mmp:DropDownButtonBehavior.DropDownContent>
+                                </mmp:DropDownButtonBehavior>
+                            </mmp:Behaviors.Behavior>
+                        </Button>
+
+                        <!-- Lock -->
+                        <Button DockPanel.Dock="Right"
+                                CommandParameter="{Binding}"
+                                mmp:Command.Action="{x:Static mmi:LayerCommands.ToggleIsLocked}"
+                                Style="{StaticResource Macad.Styles.Button.Grid}"
+                                Width="18" Height="18"
+                                Padding="2"
+                                HorizontalAlignment="Right"
+                                AutomationProperties.AutomationId="ToggleIsLocked"/>
+
+                        <!-- Visible -->
+                        <Button DockPanel.Dock="Right"
+                                CommandParameter="{Binding}"
+                                mmp:Command.Action="{x:Static mmi:LayerCommands.ToggleIsVisible}"
+                                Style="{StaticResource Macad.Styles.Button.Grid}"
+                                Width="18" Height="18"
+                                Padding="2"
+                                HorizontalAlignment="Right"
+                                AutomationProperties.AutomationId="ToggleIsVisible"/>
+
+                        <!-- Name -->
+                        <Grid Margin="5,0">
+                            <TextBlock Text="{Binding Name}" 
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Stretch"
+                                       AutomationProperties.AutomationId="LayerName">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBox
+                                LostKeyboardFocus="_TextBox_LostFocus"
+                                LostFocus="_TextBox_LostFocus"
+                                IsVisibleChanged="_TextBox_IsVisibleChanged"
+                                PreviewKeyDown="_TextBox_PreviewKeyDown"
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                Margin="-2,0,0,0"
+                                Padding="0"
+                                Height="18"
+                                AutomationProperties.AutomationId="LayerRenameBox">
+                                <TextBox.Visibility>
+                                    <MultiBinding>
+                                        <MultiBinding.Converter>
+                                            <mmp:GroupConverter
+                                                MultiValueConverter="{mmp:BooleanAndMultiConverter}">
+                                                <mmp:BoolToVisibleHiddenConverter />
+                                            </mmp:GroupConverter>
+                                        </MultiBinding.Converter>
+                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type treeView:TreeViewExItem}}" Path="IsSelected" />
+                                        <Binding RelativeSource="{RelativeSource AncestorType={x:Type treeView:TreeViewEx}}" Path="DataContext.IsNameEditing" />
+                                    </MultiBinding>
+                                </TextBox.Visibility>
+                            </TextBox>
+                        </Grid>
+                        
+                    </DockPanel>
+                </DataTemplate>
+            </treeView:TreeViewEx.ItemTemplate>
+
+        </treeView:TreeViewEx>
+    </DockPanel>
+</UserControl>

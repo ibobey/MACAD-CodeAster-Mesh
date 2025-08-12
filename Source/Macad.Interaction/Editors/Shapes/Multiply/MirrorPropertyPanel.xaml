@@ -1,0 +1,83 @@
+﻿<panels:PropertyPanel x:Class="Macad.Interaction.Editors.Shapes.MirrorPropertyPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mmp="clr-namespace:Macad.Presentation;assembly=Macad.Presentation"
+             xmlns:mmi="clr-namespace:Macad.Interaction"
+             xmlns:panels="clr-namespace:Macad.Interaction.Panels"
+             mc:Ignorable="d" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             Style="{DynamicResource Macad.Styles.PropertyPanel}"
+             Header="Mirror"
+             mmp:Help.TopicId="6578fa5e-7536-4df2-96fc-18a31a4cee9c">
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Offset -->
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+                   Text="Offset"  
+                   Style="{DynamicResource Macad.Styles.TextBlock.Property}"
+                   Visibility="{Binding Shape.Mode, Converter={mmp:EqualityToVisibleCollapsedConverter}, ConverterParameter=EdgeOrFace}"/>
+        <mmp:ValueEditBox Grid.Row="0" Grid.Column="1" 
+                          Units="Length" 
+                          Value="{Binding Shape.Offset, NotifyOnSourceUpdated=True}"
+                          Visibility="{Binding Shape.Mode, Converter={mmp:EqualityToVisibleCollapsedConverter}, ConverterParameter=EdgeOrFace}"
+                          AutomationProperties.AutomationId="Offset"/>
+       
+        
+        <!-- Keep Original -->
+        <CheckBox Grid.Row="1" Grid.Column="1"
+                  Margin="0,8,0,4"
+                  VerticalAlignment="Center" HorizontalAlignment="Left"
+                  Content="Keep Original"
+                  IsChecked="{Binding Shape.KeepOriginal}"
+                  AutomationProperties.AutomationId="KeepOriginal"/>  
+       
+        <!-- Merge Faces -->
+        <CheckBox Grid.Row="2" Grid.Column="1"
+                  Margin="0,8,0,4"
+                  VerticalAlignment="Center" HorizontalAlignment="Left"
+                  Content="Merge Faces"
+                  IsChecked="{Binding Shape.MergeFaces}"
+                  AutomationProperties.AutomationId="MergeFaces">
+            <CheckBox.Visibility>
+                <MultiBinding Converter="{mmp:BooleanAndToVisibleCollapsedMultiConverter}">
+                    <Binding Path="Shape.KeepOriginal" />
+                    <Binding Path="Shape.ShapeType" Converter="{mmp:EqualityToBoolConverter}" ConverterParameter="Solid" />
+                </MultiBinding>
+            </CheckBox.Visibility>  
+        </CheckBox>
+
+        <!-- Reselect Edge/Face -->
+        <mmp:ToggleButton Grid.Row="4" Grid.ColumnSpan="2" 
+                          IsChecked="{Binding IsToolActive}"
+                          Command="{Binding ReselectCommand}"
+                          HorizontalAlignment="Center" 
+                          Margin="0,2,0,2"
+                          AutomationProperties.AutomationId="ReselectReference">
+            <mmp:ToggleButton.Content>
+                <Binding Path="Shape.ShapeType">
+                    <Binding.Converter>
+                        <mmp:SwitchConverter>
+                            <mmp:SwitchCase When="Sketch" Then="Reselect Reference Edge" />
+                            <mmp:SwitchCase When="Solid" Then="Reselect Plane or Reference Face" />
+                        </mmp:SwitchConverter>
+                    </Binding.Converter>
+                </Binding>
+            </mmp:ToggleButton.Content>
+        </mmp:ToggleButton>
+    </Grid>
+</panels:PropertyPanel>

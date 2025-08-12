@@ -1,0 +1,43 @@
+﻿<mmp:AirspaceOverlay x:Class="Macad.Interaction.Panels.ViewportPanel"
+                     x:Name="This"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mmp="clr-namespace:Macad.Presentation;assembly=Macad.Presentation"
+                     mc:Ignorable="d" 
+                     d:DesignHeight="300" d:DesignWidth="300" 
+                     Focusable="True" 
+                     SnapsToDevicePixels="True"
+                     Background="{StaticResource Macad.Brushes.Window.Background}"
+                     Cursor="{Binding Cursor}">
+
+        <Grid>
+            <Border x:Name="ViewContainer"
+                    ForceCursor="True">
+
+                <Grid x:Name="HudContainer" Visibility="Hidden"
+                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                          IsSharedSizeScope="True">
+                    <Border
+                        Visibility="{Binding HudElements.Count, Converter={mmp:EqualityToInvisibleCollapsedConverter}, ConverterParameter=0}"
+                        CornerRadius="3"
+                        BorderThickness="0" 
+                        BorderBrush="{StaticResource Macad.Brushes.HudElement.Border}"
+                        Background="{StaticResource Macad.Brushes.HudElement.Background}"
+                        Margin="20" Padding="5,2">
+
+                        <mmp:TemplateItemsControl
+                            ItemsSource="{Binding HudElements}" Foreground="White"
+                            HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+
+                        </mmp:TemplateItemsControl>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <ContentPresenter x:Name="OverlayContentPresenter"  />
+        </Grid>
+
+</mmp:AirspaceOverlay>

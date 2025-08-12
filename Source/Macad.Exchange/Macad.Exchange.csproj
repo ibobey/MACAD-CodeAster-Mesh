@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProjectGuid>{7979e852-a660-49e9-b7ae-c1241ad25d99}</ProjectGuid>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Macad.Common\Macad.Common.csproj" />
+    <ProjectReference Include="..\Macad.Core\Macad.Core.csproj" />
+    <ProjectReference Include="..\Macad.Managed\Macad.Managed.vcxproj" />
+    <ProjectReference Include="..\Macad.Presentation\Macad.Presentation.csproj" />
+    <ProjectReference Include="..\Macad.Occt\Macad.Occt.vcxproj" />
+    <ProjectReference Include="..\..\Tools\SourceGenerator\SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <InternalsVisibleTo Include="Test.Unit" />
+    <InternalsVisibleTo Include="Test.Memory" />
+  </ItemGroup>
+
+</Project>
