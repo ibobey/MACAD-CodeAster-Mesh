@@ -15,6 +15,7 @@ namespace CodeAsterMesh.src
         private string filePath;
         private CodeAsterMeshBuilder mesh;
         private OcctHwndControl? occtControl;
+        private int nonPlanarElements = 0;
 
         #endregion
 
@@ -44,6 +45,8 @@ namespace CodeAsterMesh.src
             set
             { this.occtControl = value; }
         }
+
+        public int NonPlanarElements { get { return this.nonPlanarElements; } private set { } }
         #endregion Properties
 
         #region Constructors
@@ -99,9 +102,10 @@ namespace CodeAsterMesh.src
                         var face = new BRepBuilderAPI_MakeFace(wire, true).Face();
                         builder.Add(comp, face);
                     }
-                    
+
                     else // Divide quad to 2 triangle 
                     {
+                        this.nonPlanarElements++;
                         var triangle1 = new BRepBuilderAPI_MakePolygon();
                         triangle1.Add(element_[0]); triangle1.Add(element_[1]); triangle1.Add(element_[2]);
                         triangle1.Close();

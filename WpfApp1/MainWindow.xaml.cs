@@ -54,21 +54,22 @@ namespace CodeAsterMesh
             CodeAsterMeshViewer viwer = new CodeAsterMeshViewer(OcctControl, filePathNew);
             viwer.ImportMesh();
             viwer.VisualizeMesh();
-            LoadMeshDataToGrid(viwer.Mesh);
+            LoadMeshDataToGrid(viwer);
         }
 
-        private void LoadMeshDataToGrid(CodeAsterMeshBuilder mesh)
+        private void LoadMeshDataToGrid(CodeAsterMeshViewer viewer)
         {
 
             var data = new List<DataGridProperty>
                 {
-                    new DataGridProperty { Key = "File", Value = mesh.FilePath },
-                    new DataGridProperty { Key = "Node", Value = mesh.Nodes.Count.ToString() },
-                    new DataGridProperty { Key = "Quad", Value = mesh.Quads.Count.ToString() },
-                    new DataGridProperty { Key = "Triangle", Value = mesh.Triangles.Count.ToString() },
-                    new DataGridProperty { Key = "Beam", Value = mesh.Beams.Count.ToString() },
-                    new DataGridProperty { Key = "Total", Value = mesh.ElementsUngrouped.Count.ToString(), },
-                    new DataGridProperty { Key = "Groups", Value = mesh.Groups.Keys.ToList().Count.ToString(), },
+                    new DataGridProperty { Key = "File", Value = viewer.Mesh.FilePath },
+                    new DataGridProperty { Key = "Node", Value = viewer.Mesh.Nodes.Count.ToString() },
+                    new DataGridProperty { Key = "Quad", Value = viewer.Mesh.Quads.Count.ToString() },
+                    new DataGridProperty { Key = "Triangle", Value = viewer.Mesh.Triangles.Count.ToString() },
+                    new DataGridProperty { Key = "Beam", Value = viewer.Mesh.Beams.Count.ToString() },
+                    new DataGridProperty { Key = "Total", Value = viewer.Mesh.ElementsUngrouped.Count.ToString(), },
+                    new DataGridProperty { Key = "Groups", Value = viewer.Mesh.Groups.Keys.ToList().Count.ToString(), },
+                    new DataGridProperty { Key = "Non Planar Quad Elements", Value = viewer.NonPlanarElements.ToString(), },
                 };
 
             myDataGrid.ItemsSource = data;
@@ -108,7 +109,7 @@ namespace CodeAsterMesh
                 {
 
                     //DIVIDES QUAD ELEMENT TO 2 TRIANGLE ELEMENT
-                    
+
                     var mk = new BRepBuilderAPI_MakePolygon();
                     mk.Add(element_[0]); mk.Add(element_[1]); mk.Add(element_[2]);
                     mk.Close();
@@ -124,7 +125,7 @@ namespace CodeAsterMesh
 
                     var face2 = new BRepBuilderAPI_MakeFace(mk2.Wire(), true).Face();
                     builder.Add(comp, face2);
-                    
+
 
                     /*
                     var mk = new BRepBuilderAPI_MakePolygon();
