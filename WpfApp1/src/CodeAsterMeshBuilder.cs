@@ -211,6 +211,7 @@ namespace CodeAsterMesh.src
 
                 foreach (var subGroup in ExtractDataBetweenKeywords(startKeyword: group, endKeyword: KeyWords.FINSF))
                 {
+                    if (subGroup.Trim().Length ==0) { continue; }
                     var digits = new string(subGroup.Where(char.IsDigit).ToArray()); // "N4  " -> "4"
                     indexTemps.Add(int.Parse(digits));
                 }

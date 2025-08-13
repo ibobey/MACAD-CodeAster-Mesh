@@ -43,18 +43,15 @@ namespace CodeAsterMesh
             // Keep a reference
             // OcctControl is initialized via XAML.
             // Its BuildWindowCore and InitializeOcct will be called automatically.
-            // NewDrawMeshFunction();
             VisualizeMesh();
         }
 
         public void VisualizeMesh()
         {
-
             /* Give FilePath Manually*/
-            string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.FullName;
-            string filePath = System.IO.Path.Combine(projectDir, "samples", "pontoon.mail");
+            string filePathNew = @"C:\Users\ibrah\OneDrive\Masaüstü\v6-parca.mail";
 
-            CodeAsterMeshViewer viwer = new CodeAsterMeshViewer(OcctControl, filePath);
+            CodeAsterMeshViewer viwer = new CodeAsterMeshViewer(OcctControl, filePathNew);
             viwer.ImportMesh();
             viwer.VisualizeMesh();
             LoadMeshDataToGrid(viwer.Mesh);
@@ -87,8 +84,10 @@ namespace CodeAsterMesh
             string file_path = @"C:\Users\ibrah\OneDrive\Masaüstü\obirler\send\Mesh_and_MeshViewer\pontoon.mail";
             string file_path_2 = @"D:\Mesh\OCCT-Code_Aster-Mesh-Viewer\Mesh_and_MeshViewer\Test_fullship12.mail";
             string file_path_3 = @"C:\Users\ibrah\OneDrive\Masaüstü\shell_beam_t.mail";
+            string filePath = @"C:\Users\ibrah\OneDrive\Masaüstü\v6-parca.mail";
+            string filePathNew = @"C:\Users\ibrah\OneDrive\Masaüstü\v6-parca.mail";
 
-            var mesh = new CodeAsterMeshBuilder(file_path);
+            var mesh = new CodeAsterMeshBuilder(filePathNew);
             mesh.PullDataFromMeshFile();
             mesh.GetlAllElements();
 
@@ -102,15 +101,15 @@ namespace CodeAsterMesh
             var builder2 = new BRep_Builder();
             builder2.MakeCompound(comp2);
 
-
-            foreach (var element_ in mesh.ElementsUngrouped)
+            foreach (var element_ in mesh.Quads)
             {
 
                 if (element_.Count == 4)
                 {
 
                     //DIVIDES QUAD ELEMENT TO 2 TRIANGLE ELEMENT
-                    /*var mk = new BRepBuilderAPI_MakePolygon();
+                    
+                    var mk = new BRepBuilderAPI_MakePolygon();
                     mk.Add(element_[0]); mk.Add(element_[1]); mk.Add(element_[2]);
                     mk.Close();
                     if (!mk.IsDone()) continue;
@@ -124,21 +123,28 @@ namespace CodeAsterMesh
                     if (!mk2.IsDone()) continue;
 
                     var face2 = new BRepBuilderAPI_MakeFace(mk2.Wire(), true).Face();
-                    builder.Add(comp, face2);*/
+                    builder.Add(comp, face2);
+                    
 
-
+                    /*
                     var mk = new BRepBuilderAPI_MakePolygon();
                     mk.Add(element_[0]); mk.Add(element_[1]); mk.Add(element_[2]); mk.Add(element_[3]);
                     mk.Close();
                     if (!mk.IsDone()) continue;
 
+                    var wire = mk.Wire();
+                    var fp = new BRepBuilderAPI_FindPlane(wire);
+                    if (!fp.Found()) continue;
+
                     var face = new BRepBuilderAPI_MakeFace(mk.Wire(), true).Face();
+
                     builder.Add(comp, face);
+                    */
                 }
 
                 if (element_.Count == 3)
                 {
-
+                    continue;
                     var mk = new BRepBuilderAPI_MakePolygon();
                     mk.Add(element_[0]); mk.Add(element_[1]); mk.Add(element_[2]);
                     mk.Close();
@@ -150,7 +156,7 @@ namespace CodeAsterMesh
 
                 if (element_.Count == 2)
                 {
-
+                    continue;
                     var p1 = element_[0];
                     var p2 = element_[1];
 
@@ -177,8 +183,8 @@ namespace CodeAsterMesh
 
 
             mesh.GetlAllElements();
-            mesh.GroupElements();
-            LoadMeshDataToGrid(mesh);
+            // mesh.GroupElements();
+            // LoadMeshDataToGrid(mesh);
         }
         private void DisplaySampleBox()
         {
@@ -204,6 +210,72 @@ namespace CodeAsterMesh
                 MessageBox.Show($"Error creating/displaying shape: {ex.Message}", "OCCT Error");
             }
         }
+        #endregion
+
+        #region Manuel Mesh Drawing Functions
+
+        public void DrawManuelRectangles()
+        {
+            /*
+             	E0 N0 N1 N2 N3
+	            E1 N3 N2 N4 N5
+	            E2 N1 N0 N6 N7
+	            E3 N7 N6 N8 N9
+	            E4 N10 N11 N12 N13
+	            E5 N13 N12 N14 N15
+	            E6 N15 N14 N16 N17
+	            E7 N17 N16 N18 N19
+	            E8 N19 N18 N20 N21
+            */
+
+            Pnt N0 = new Pnt(118, -1, 3.975);
+            Pnt N1 = new Pnt(118, -1, 3.75);
+            Pnt N2 = new Pnt(118.22558, -1, 3.97442);
+            Pnt N3 = new Pnt(118.45, -1, 4.2);
+            Pnt N4 = new Pnt(118.225, -1, 4.2);
+            Pnt N5 = new Pnt(114, -7, 0.3);
+            Pnt N6 = new Pnt(114.28071, -7, 0.30969);
+            Pnt N7 = new Pnt(114.18389, -7, 0.49254);
+            Pnt N8 = new Pnt(117.175, -7, 4.01455);
+            Pnt N9 = new Pnt(117.4, -7, 3.78955);
+            Pnt N10 = new Pnt(117.4, -7, 4.01455);
+            Pnt N11 = new Pnt(117.175, -7, 4.23955);
+            Pnt N12 = new Pnt(116.95, -7, 4.23955);
+            Pnt N13 = new Pnt(118.225, -7, 0.84955);
+            Pnt N14 = new Pnt(118, -7, 1.07455);
+            Pnt N15 = new Pnt(118, -7, 0.84955);
+            Pnt N16 = new Pnt(118.225, -7, 0.62455);
+            Pnt N17 = new Pnt(118.45, -7, 0.62455);
+            Pnt N18 = new Pnt(117.4, -7, 0.84955);
+            Pnt N19 = new Pnt(117.4, -7, 1.07455);
+            Pnt N20 = new Pnt(117.175, -7, 0.84955);
+            Pnt N21 = new Pnt(116.95, -7, 0.62455);
+
+            List<Pnt> points = new List<Pnt>() { N0, N1, N2, N3, N4, N5, N6, N7, N8, N9, N10, N11, N12, N13, N14, N15, N16, N17, N18, N19, N20, N21 };
+
+            // N1..N4: Pnt / gp_Pnt
+            var poly = new BRepBuilderAPI_MakePolygon();
+            poly.Add(new Pnt(0, 0, 0)); poly.Add(new Pnt(5, 5, 0)); poly.Add(new Pnt(10, 0, 0)); poly.Add(new Pnt(15, 5, 0)); ;
+            poly.Close();
+            if (!poly.IsDone()) { MessageBox.Show("Mistaken Wire"); } else { MessageBox.Show("True Wire"); }
+
+            TopoDS_Wire w = poly.Wire();
+            var mkFace = new BRepBuilderAPI_MakeFace(w, /*OnlyPlane*/ true); // düzlem bulamazsa NotDone olur
+            if (!mkFace.IsDone()) { MessageBox.Show("Mistaken Face"); } else { MessageBox.Show("True Face"); }
+            TopoDS_Face face = mkFace.Face();
+
+            OcctControl.DisplayShape(poly.Wire());
+
+
+            OcctControl.DisplayShape(face);
+
+
+            // OcctControl.FitAll();
+            OcctControl.Update();
+
+
+        }
+
         #endregion
     }
 

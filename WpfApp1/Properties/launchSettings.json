@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CodeAsterMesh": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

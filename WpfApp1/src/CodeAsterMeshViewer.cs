@@ -90,8 +90,34 @@ namespace CodeAsterMesh.src
                     mk.Close();
                     if (!mk.IsDone()) continue;
 
-                    var face = new BRepBuilderAPI_MakeFace(mk.Wire(), true).Face();
-                    builder.Add(comp, face);
+                    TopoDS_Wire wire = mk.Wire();
+
+                    var fp = new BRepBuilderAPI_FindPlane(wire);
+
+                    if (fp.Found()) // If plane is planar create face
+                    {
+                        var face = new BRepBuilderAPI_MakeFace(wire, true).Face();
+                        builder.Add(comp, face);
+                    }
+                    
+                    else // Divide quad to 2 triangle 
+                    {
+                        var triangle1 = new BRepBuilderAPI_MakePolygon();
+                        triangle1.Add(element_[0]); triangle1.Add(element_[1]); triangle1.Add(element_[2]);
+                        triangle1.Close();
+                        if (!triangle1.IsDone()) continue;
+
+                        var face = new BRepBuilderAPI_MakeFace(triangle1.Wire(), true).Face();
+                        builder.Add(comp, face);
+
+                        var triangle2 = new BRepBuilderAPI_MakePolygon();
+                        triangle2.Add(element_[0]); triangle2.Add(element_[2]); triangle2.Add(element_[3]);
+                        triangle2.Close();
+                        if (!triangle2.IsDone()) continue;
+
+                        var face2 = new BRepBuilderAPI_MakeFace(triangle2.Wire(), true).Face();
+                        builder.Add(comp, face2);
+                    }
                 }
                 if (element_.Count == 3)
                 {
