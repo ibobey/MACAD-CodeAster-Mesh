@@ -87,12 +87,13 @@ namespace CodeAsterMesh
 
             var aisShape = new AIS_Shape(shape);
             _aisContext.Display(aisShape, true); // true to update viewer immediately
-
+            
             if (fitAll)
             {
                 _occtView.FitAll(0.1, false); // 0.1 margin, don't force update (Display already did)
                 _occtView.ZFitAll(1.0);
             }
+
             _occtView.Redraw();
         }
 

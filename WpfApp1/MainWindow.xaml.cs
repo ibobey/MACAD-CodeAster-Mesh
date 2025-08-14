@@ -16,6 +16,9 @@ using Macad.Occt.Helper;
 
 using CodeAsterMesh.src;
 using System.IO;
+using System.Windows.Forms;
+using System.Diagnostics;
+using System;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
@@ -44,16 +47,20 @@ namespace CodeAsterMesh
             // OcctControl is initialized via XAML.
             // Its BuildWindowCore and InitializeOcct will be called automatically.
             VisualizeMesh();
+            // DrawManuelQuadElements();
         }
 
         public void VisualizeMesh()
         {
             /* Give FilePath Manually*/
             string filePathNew = @"C:\Users\ibrah\OneDrive\Masaüstü\v6-parca.mail";
+            string filePathOld = @"C:\Users\ibrah\OneDrive\Masaüstü\shell_beam_t.mail";
 
             CodeAsterMeshViewer viwer = new CodeAsterMeshViewer(OcctControl, filePathNew);
             viwer.ImportMesh();
-            viwer.VisualizeMesh();
+            viwer.VisualizeMeshNew();
+
+            
             LoadMeshDataToGrid(viwer);
         }
 
@@ -203,12 +210,12 @@ namespace CodeAsterMesh
                 }
                 else
                 {
-                    MessageBox.Show("Failed to create OCCT box.", "Error");
+                    return;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error creating/displaying shape: {ex.Message}", "OCCT Error");
+                return;
             }
         }
         #endregion
@@ -258,11 +265,11 @@ namespace CodeAsterMesh
             var poly = new BRepBuilderAPI_MakePolygon();
             poly.Add(new Pnt(0, 0, 0)); poly.Add(new Pnt(5, 5, 0)); poly.Add(new Pnt(10, 0, 0)); poly.Add(new Pnt(15, 5, 0)); ;
             poly.Close();
-            if (!poly.IsDone()) { MessageBox.Show("Mistaken Wire"); } else { MessageBox.Show("True Wire"); }
+            if (!poly.IsDone()) { return; } 
 
             TopoDS_Wire w = poly.Wire();
             var mkFace = new BRepBuilderAPI_MakeFace(w, /*OnlyPlane*/ true); // düzlem bulamazsa NotDone olur
-            if (!mkFace.IsDone()) { MessageBox.Show("Mistaken Face"); } else { MessageBox.Show("True Face"); }
+            if (!mkFace.IsDone()) return; 
             TopoDS_Face face = mkFace.Face();
 
             OcctControl.DisplayShape(poly.Wire());
@@ -274,6 +281,51 @@ namespace CodeAsterMesh
             // OcctControl.FitAll();
             OcctControl.Update();
 
+
+        }
+
+        public void DrawManuelQuadElements()
+        {
+            Pnt P1 = new Pnt(114, -2.75, 4.89234);
+            Pnt P2 = new Pnt(114, -3, 4.8911);
+            Pnt P3 = new Pnt(114.25965, -3.07198, 4.89075);
+            Pnt P4 = new Pnt(114.2537, -2.74499, 4.89236);
+
+            var fill = new BRepOffsetAPI_MakeFilling();
+
+            // Toleransları ayarla (mm çalışanlar için tipik, örnek):
+            double tol2d = 1e-5;
+            double tol3d = 1e-3;          // “bu kadar yaklaşsın” (işine göre 1e-4…1e-3)
+            double tolAng = 0.01;          // ≈0.57°  (radyan)
+            double tolCurv = 0.1;
+
+            fill.SetConstrParam(tol2d, tol3d, tolAng, tolCurv);
+
+            TopoDS_Edge e12 = new BRepBuilderAPI_MakeEdge(P1, P2).Edge();
+            TopoDS_Edge e23 = new BRepBuilderAPI_MakeEdge(P2, P3).Edge();
+            TopoDS_Edge e34 = new BRepBuilderAPI_MakeEdge(P3, P4).Edge();
+            TopoDS_Edge e41 = new BRepBuilderAPI_MakeEdge(P4, P1).Edge();
+
+            bool isBound = true;
+            fill.Add(e12, GeomAbs_Shape.C0, isBound);
+            fill.Add(e23, GeomAbs_Shape.C0, isBound);
+            fill.Add(e34, GeomAbs_Shape.C0, isBound);
+            fill.Add(e41, GeomAbs_Shape.C0, isBound);
+
+            fill.Build();
+            if (!fill.IsDone())
+                throw new InvalidOperationException("Filling çözülemedi.");
+
+            TopoDS_Shape faceShape = fill.Shape();
+            OcctControl.DisplayShape(faceShape);
+
+
+            // OcctControl.FitAll();
+            OcctControl.Update();
+        }
+
+        public void DrawViaAIS()
+        {
 
         }
 

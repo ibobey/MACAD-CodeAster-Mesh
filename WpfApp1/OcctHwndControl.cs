@@ -33,11 +33,11 @@ namespace CodeAsterMesh
 
         #region Fields
 
-        private V3d_View _occtView;
+        private V3d_View _occtView; 
 
         private V3d_Viewer _occtViewer;
 
-        private AIS_InteractiveContext _aisContext;
+        private AIS_InteractiveContext _aisContext; 
 
         private Graphic3d_GraphicDriver _graphicDriver;
 
